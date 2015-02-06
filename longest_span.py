@@ -1,5 +1,3 @@
-
-
 import fileinput
 
 def parse_bed(bed_string):
@@ -13,14 +11,27 @@ def parse_bed(bed_string):
   	return None
   else:
   	span = end - start
-  	return {'chrom': chrom, 'span': span}
+  	return {'chrom': chrom, 'span': span, 'chromStart': start, 'chromEnd':end}
 
 def print_bed(bed_dict):
   if bed_dict is None:
     print 'Bad data!'
   else:
-    print 'Chrom:',bed_dict['chrom'], 'Span:',bed_dict['span']
+    print 'Chrom:',bed_dict['chrom'], 'Span:',bed_dict['span'], 'Start:', bed_dict['chromStart'], 'End:', bed_dict['chromEnd']
+    # you could also use a built in function to print all the keys and values - check documentation
 
+def is_longest_span(bed_dict, longest_dict):
+  if longest_dict is None:
+    return True
+  previous_longest = longest_dict['span']
+  span = bed_dict['span']
+  return span > previous_longest
+  
+longest_dict = None
 for line in fileinput.input():      #this allows you to type the input file as a parameter from bash when you call the python script (i.e. python longest_span_v6.py a.bed
-  print_bed(parse_bed(line))
+  bed_dict = parse_bed(line)
+  if is_longest_span(bed_dict, longest_dict):
+    longest = bed_dict
+print_bed(longest)
 
+ 
