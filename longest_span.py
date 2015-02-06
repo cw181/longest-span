@@ -1,8 +1,6 @@
-import sys
 
-# Input Data
-bed_string = 'chr1 6 12'
-#len(bed_string)
+
+import fileinput
 
 def parse_bed(bed_string):
   # Parsing
@@ -23,6 +21,6 @@ def print_bed(bed_dict):
   else:
     print 'Chrom:',bed_dict['chrom'], 'Span:',bed_dict['span']
 
-for line in sys.stdin:       #stdin is input from the keyboard after you run the script. You have to enter Ctrl-D when you are done entering the text 'chr1 6 12'
+for line in fileinput.input():      #this allows you to type the input file as a parameter from bash when you call the python script (i.e. python longest_span_v6.py a.bed
   print_bed(parse_bed(line))
 
