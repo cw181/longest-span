@@ -28,7 +28,8 @@ def is_longest_span(bed_dict, longest_dict):
   previous_longest = longest_dict['span']
   span = bed_dict['span']
   return span > previous_longest
-  
+
+# Now print all of the longest spans  
 longest_dict = None
 for line in fileinput.input():      #this allows you to type the input file as a parameter from bash when you call the python script (i.e. python longest_span_v6.py a.bed
   bed_dict = parse_bed(line)
